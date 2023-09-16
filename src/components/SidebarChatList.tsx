@@ -23,9 +23,6 @@ interface ExtendedMessage extends Message {
 }
 
 const SidebarChatList: FC<PageProps> = ({ friends, sessionId }) => {
-  console.log(sessionId);
-  console.log(friends);
-
   const router = useRouter();
   const pathname = usePathname();
 
@@ -33,12 +30,14 @@ const SidebarChatList: FC<PageProps> = ({ friends, sessionId }) => {
 
   useEffect(() => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
+
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
     const newFriendHandler = () => {
       router.refresh();
     };
 
+    //should not be notified if the user is active in the chat
     const chatHandler = (message: ExtendedMessage) => {
       const shouldNotify =
         pathname !==
@@ -72,30 +71,6 @@ const SidebarChatList: FC<PageProps> = ({ friends, sessionId }) => {
       pusherClient.unbind("new_friend", newFriendHandler);
     };
   }, [pathname, sessionId, router]);
-
-  // useEffect(() => {
-  //   pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
-
-  //   pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
-
-  //   const newFriendHandler = () => {
-  //     router.refresh();
-  //   };
-  //   const chatHandler = (message: ExtendedMessage) => {
-  //     console.log("new chat message",message);
-  //   };
-
-  //   pusherClient.bind("new_message", chatHandler);
-  //   pusherClient.bind("new_friend", newFriendHandler);
-
-  //   return () => {
-  //     pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
-  //     pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
-
-  //     pusherClient.unbind("new_message", chatHandler);
-  //     pusherClient.unbind("new_friend", newFriendHandler);
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (pathname?.includes("chat")) {

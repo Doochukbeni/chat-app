@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
 import { toPusherKey } from "@/lib/utils";
 import { Message, messageValidator } from "@/lib/validations/messages";
-import { log } from "console";
 import { nanoid } from "nanoid";
 import { getServerSession } from "next-auth";
 
@@ -89,6 +88,7 @@ import { getServerSession } from "next-auth";
 export async function POST(req: Request) {
   try {
     const { text, chatId }: { text: string; chatId: string } = await req.json();
+
     const session = await getServerSession(authOptions);
     console.log(session);
 
@@ -106,6 +106,7 @@ export async function POST(req: Request) {
       "smembers",
       `user:${session.user.id}:friends`
     )) as string[];
+
     const isFriend = friendList.includes(friendId);
 
     if (!isFriend) {
@@ -116,7 +117,9 @@ export async function POST(req: Request) {
       "get",
       `user:${session.user.id}`
     )) as string;
+
     const sender = JSON.parse(rawSender) as User;
+
     console.log(sender);
 
     const timestamp = Date.now();

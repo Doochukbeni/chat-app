@@ -1,7 +1,8 @@
 "use client";
-import { chatHrefConstructor, cn } from "@/lib/utils";
 import Image from "next/image";
 import { Toast, toast } from "react-hot-toast";
+
+import { chatHrefConstructor, cn } from "@/lib/utils";
 
 interface unseenChatPost {
   t: Toast;
@@ -38,9 +39,9 @@ const UnseenChatToast = ({
               <Image
                 src={senderImg}
                 alt={`${senderName} profile photo`}
-                fill={true}
+                fill
                 referrerPolicy="no-referrer"
-                className="rounded-full "
+                className="rounded-full object-cover"
               />
             </div>
           </div>
@@ -52,7 +53,7 @@ const UnseenChatToast = ({
         </div>
       </a>
 
-      <div className="flex border-1 border-gray-200">
+      <div className="flex border-l border-gray-200">
         <button
           onClick={() => toast.dismiss(t.id)}
           className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
