@@ -46,9 +46,18 @@ const Layout = async ({ children }: LayoutProps) => {
 
   return (
     <div className="w-full flex h-screen">
-      <div className="flex h-full w-full max-w-xs grow  flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-        <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
-          <Icons.Logo className="h-8 w-auto text-indigo-600" />
+      <div className="flex h-full w-full max-w-xs grow  flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white sm:px-6 px-2">
+        <Link
+          href="/dashboard"
+          className="flex relative h-16 shrink-0 items-center"
+        >
+          {/* <Icons.Logo className="h-8 w-auto text-indigo-600" /> */}
+          <Image
+            src="/IMG-20180122-WA0076-_1_.svg"
+            height={100}
+            width={100}
+            alt="logo"
+          />
         </Link>
         {friends.length > 0 ? (
           <div className="text-xs font-semibold leading-6 text-gray-400">
@@ -78,7 +87,9 @@ const Layout = async ({ children }: LayoutProps) => {
                           <Icon className="h-4 w-4" />
                         </span>
 
-                        <span className="truncate">{option.name}</span>
+                        <span className="truncate sm:block hidden">
+                          {option.name}
+                        </span>
                       </Link>
                     </li>
                   );
@@ -104,7 +115,7 @@ const Layout = async ({ children }: LayoutProps) => {
                   />
                 </div>
                 <span className="sr-only ">Your Profile</span>
-                <div className="flex flex-col">
+                <div className="sm:flex flex-col hidden">
                   <span aria-hidden="true">{session.user.name || ""}</span>
                   <span className="text-xs text-zinc-400" aria-hidden="true">
                     {session.user.email}
@@ -116,7 +127,7 @@ const Layout = async ({ children }: LayoutProps) => {
           </ul>
         </nav>
       </div>
-      <aside className="max-h-screen container py-16 md:py-12 w-full">
+      <aside className="max-h-screen grow container py-16 md:py-12 w-full">
         {children}
       </aside>
     </div>

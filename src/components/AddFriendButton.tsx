@@ -58,9 +58,9 @@ const AddFriendButton: FC<addFriendButton> = ({}) => {
         htmlFor="email"
         className="block text-sm font-medium leading-6 text-gray-900"
       >
-        Add friend by E-Mail
+        Add Friend by Email
       </label>
-      <div className="mt-2 flex gap-4">
+      <div className="mt-2 flex sm:flex-row flex-col gap-4">
         <input
           {...register("email")}
           type="text"
