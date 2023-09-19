@@ -1,5 +1,6 @@
 import FriendRequestSidebarOption from "@/components/FriendRequestSidebarOption";
 import { Icon, Icons } from "@/components/Icons";
+import MobileChatLayout from "@/components/MobileChatLayout";
 import SidebarChatList from "@/components/SidebarChatList";
 import SignOutButton from "@/components/SignOutButton";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
@@ -46,10 +47,18 @@ const Layout = async ({ children }: LayoutProps) => {
 
   return (
     <div className="w-full flex h-screen">
-      <div className="flex h-full w-full max-w-xs grow  flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white sm:px-6 px-2">
+      <div className="md:hidden">
+        <MobileChatLayout
+          friends={friends}
+          session={session}
+          sidebarOptions={sidebarOptions}
+          unseenRequestCount={unseenRequestCount}
+        />
+      </div>
+      <div className="hidden md:flex h-full w-full max-w-xs grow  flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white sm:px-6 px-2">
         <Link
           href="/dashboard"
-          className="flex relative h-16 shrink-0 items-center"
+          className="hidden md:flex relative h-16 shrink-0 items-center"
         >
           {/* <Icons.Logo className="h-8 w-auto text-indigo-600" /> */}
           <Image
@@ -87,9 +96,7 @@ const Layout = async ({ children }: LayoutProps) => {
                           <Icon className="h-4 w-4" />
                         </span>
 
-                        <span className="truncate sm:block hidden">
-                          {option.name}
-                        </span>
+                        <span className="truncate">{option.name}</span>
                       </Link>
                     </li>
                   );
@@ -115,7 +122,7 @@ const Layout = async ({ children }: LayoutProps) => {
                   />
                 </div>
                 <span className="sr-only ">Your Profile</span>
-                <div className="sm:flex flex-col hidden">
+                <div className="flex flex-col">
                   <span aria-hidden="true">{session.user.name || ""}</span>
                   <span className="text-xs text-zinc-400" aria-hidden="true">
                     {session.user.email}
