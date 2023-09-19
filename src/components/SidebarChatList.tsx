@@ -27,15 +27,16 @@ const SidebarChatList: FC<PageProps> = ({ friends, sessionId }) => {
   const pathname = usePathname();
 
   const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
-  const [activeChats, setActiveChat] = useState<User[]>(friends);
+  const [activeChats, setActiveChats] = useState<User[]>(friends);
 
   useEffect(() => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
-
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
     const newFriendHandler = (newFriend: User) => {
-      setActiveChat((prev) => [...prev, newFriend]);
+      console.log("received new user", newFriend);
+
+      setActiveChats((prev) => [...prev, newFriend]);
     };
 
     //should not be notified if the user is active in the chat
