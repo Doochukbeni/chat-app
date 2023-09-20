@@ -52,7 +52,7 @@ const AddFriendButton: FC<addFriendButton> = ({}) => {
 
   const onSubmit = (data: FormData) => {
     addFriend(data.email);
-    // router.push("/dashboard");
+    router.push("/dashboard");
   };
 
   return (

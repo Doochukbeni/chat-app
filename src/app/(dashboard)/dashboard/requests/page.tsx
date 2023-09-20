@@ -1,10 +1,8 @@
-import AddFriendButton from "@/components/AddFriendButton";
 import FriendRequest from "@/components/FriendRequest";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import React from "react";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -21,6 +19,7 @@ const page = async () => {
       const sender = (await fetchRedis("get", `user:${senderId}`)) as string;
 
       const senderParsed = JSON.parse(sender) as User;
+
       return {
         senderId,
         senderEmail: senderParsed.email,
@@ -30,6 +29,7 @@ const page = async () => {
   );
   return (
     <main className="pt-8">
+      <h1 className="font-bold text-5xl mb-8">Add a friend</h1>
       <div className="flex flex-col gap-4">
         <FriendRequest
           incomingFriendRequests={incomingFriendRequests}
