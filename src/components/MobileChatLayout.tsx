@@ -36,7 +36,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({
   }, [pathname]);
 
   return (
-    <div className="fixed bg-zinc-50 border-b border-zinc-200 top-0 inset-x-0 py-2 px-4">
+    <div className="fixed bg-zinc-50 border-b z-20 border-zinc-200 top-0 inset-x-0 py-2 px-4">
       <div className="w-full flex justify-between items-center">
         <Link
           href="/dashboard"
